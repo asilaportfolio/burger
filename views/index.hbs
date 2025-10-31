@@ -11,16 +11,16 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="enhanced-styles.css">
-  <link rel="shortcut icon" href="./img/logo.svg">
+  <link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/enhanced-styles.css">
+  <link rel="shortcut icon" href="/img/logo.svg">
 </head>
 <body>
 
 <!-- Professional Loading Screen -->
 <div id="loadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: linear-gradient(135deg, #513a73 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease;">
   <div style="text-align: center;">
-    <img src="./img/logo.svg" alt="Logo" style="width: 100px; height: 100px; animation: spin 2s linear infinite;">
+    <img src="/img/logo.svg" alt="Logo" style="width: 100px; height: 100px; animation: spin 2s linear infinite;">
     <h3 style="color: white; margin-top: 20px; font-weight: 700; letter-spacing: 2px;">MIX BURGER</h3>
     <div style="width: 150px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 20px auto; overflow: hidden;">
       <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #ff9900, #ffc107); animation: loading 1.5s ease-in-out infinite;"></div>
@@ -42,146 +42,345 @@
 </style>
 
 <!-- NAVBAR -->
-<nav class="navbar navbara navbar-expand-lg sticky-top px-4 py-3">
+<nav class="navbar navbara navbar-expand-lg  sticky-top px-4 py-3">
   <div class="container-fluid d-flex justify-content-between align-items-center">
-    <!-- Logo -->
-    <a id="adminLogoAccess" class="navbar-brand d-flex align-items-center" href="#" style="cursor: pointer;">
-      <img src="./img/logo.svg" alt="Logo" width="40" height="40" class="me-2" id="logoImage">
-    </a>
 
-    <!-- Menu overlay for mobile -->
-    <div class="menu-overlay" id="menuOverlay"></div>
+    <!-- Chap tomon -->
+    <div class="d-flex align-items-center gap-4">
+      <a id="adminLogoAccess" class="navbar-brand d-flex align-items-center" href="#" style="cursor: pointer;">
+        <img src="/img/logo.svg" alt="Logo" width="40" height="40" class="me-2">
+      </a>
+    </div>
 
-    <!-- Navbar icons container -->
-    <div class="d-flex align-items-center gap-3" id="navbar-icons">
-      <!-- Contact info (hidden on mobile) -->
-      <div class="contact-info d-none d-lg-flex flex-column align-items-start justify-content-center ms-3">
-        <div class="d-flex align-items-center mb-1">
-          <i class='bx bx-phone fs-5 me-2'></i>
-          <h5 class="fw-bold mb-0" style="color: black;">+998 (90) 123-45-67</h5>
-        </div>
-        <div class="d-flex align-items-center">
-          <i class='bx bx-time-five fs-5 me-2'></i>
-          <h5 class="text-muted mb-0" style="color: black;">09:00 - 23:00</h5>
-        </div>
-      </div>
+<!-- Menu overlay for mobile -->
+<div class="menu-overlay" id="menuOverlay"></div>
 
-      <!-- Sevimlilar -->
-      <button id="favoritesToggleBtn" class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center position-relative" style="width:45px; height:45px;">
-        <i class='bx bx-heart fs-4'></i>
-        <span id="favoritesBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none; font-size: 10px;">0</span>
-      </button>
+<div class="d-flex align-items-center gap-4 position-fixed top-0 end-0 m-3" id="navbar-icons">
+  <!-- Qo'ng'iroq bloki -->
+  <div class="contact-info d-flex flex-column align-items-start justify-content-center ms-3">
+    <div class="d-flex align-items-center mb-1">
+      <i class='bx bx-phone fs-5 me-2'></i>
+      <h5 class="fw-bold mb-0">+998 (90) 123-45-67</h5>
+    </div>
 
-      <!-- Savatcha -->
-      <button id="cartToggleBtn" class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center position-relative" style="width:45px; height:45px;">
-        <i class='bx bx-cart fs-4'></i>
-        <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none; font-size: 10px;">0</span>
-      </button>
-
-      <!-- Dark mode -->
-      <button id="themeToggle" class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center" style="width:45px; height:45px;">
-        <i id="themeIcon" class="bx bx-moon fs-4"></i>
-      </button>
+    <div class="d-flex align-items-center">
+      <i class='bx bx-time-five fs-5 me-2'></i>
+      <h5 class="text-muted mb-0">09:00 - 23:00</h5>
     </div>
   </div>
+
+  <!-- Sevimlilar -->
+  <button id="favoritesToggleBtn" class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center position-relative" style="width:45px; height:45px;">
+    <i class='bx bx-heart fs-4'></i>
+    <span id="favoritesBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none; font-size: 10px;">0</span>
+  </button>
+
+  <!-- Savatcha -->
+  <button id="cartToggleBtn" class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center position-relative" style="width:45px; height:45px;">
+    <i class='bx bx-cart fs-4'></i>
+    <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none; font-size: 10px;">0</span>
+  </button>
+
+  <!-- Dark mode -->
+  <button id="themeToggle" class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center" style="width:45px; height:45px;">
+    <i id="themeIcon" class="bx bx-moon fs-4"></i>
+  </button>
+
+  <!-- Admin panel link (only visible to admins) -->
+  {{#if isAdmin}}
+  <a href="/admin-panel" class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center" style="width:45px; height:45px;" title="Admin panel">
+    <i class='bx bx-cog fs-4'></i>
+  </a>
+  {{/if}}
+
+</div>
+
 </nav>
 
  <div class="container-fluid mt-4 main-content" style="flex: 1; min-height: calc(100vh - 200px);">
   <div class="row">
+    {{#unless products}}
+    <div class="col-12">
+      <div class="alert alert-info text-center" role="alert">
+        <h4>Tez orada yangi mahsulotlar qo'shiladi...</h4>
+        <p>Hozirda mahsulotlar mavjud emas. Iltimos, keyinroq qaytib ko'ring.</p>
+      </div>
+    </div>
+    {{/unless}}
 
     <div class="col-md-3">
         <div class="nav flex-column nav-pills sticky-top" id="menu-tab" role="tablist" aria-orientation="vertical" style="top: 100px;">
-          <a class="nav-linka fw-bold fs-5 active" href="#lavash">Lavash</a>
-          <a class="nav-link fw-bold fs-5" href="#burger">Burger</a>
-          <a class="nav-link fw-bold fs-5" href="#pizza">Pizza</a>
-          <a class="nav-link fw-bold fs-5" href="#hotdog">Hotdog</a>
-          <a class="nav-link fw-bold fs-5" href="#sandwich">Sandwich</a>
-          <a class="nav-link fw-bold fs-5" href="#chips">Chips</a>
-          <a class="nav-link fw-bold fs-5" href="#sous">Sous</a>
-          <a class="nav-link fw-bold fs-5" href="#mix">Mix</a>
-          <a class="nav-link fw-bold fs-5" href="#cake">Cake</a>
-          <a class="nav-link fw-bold fs-5" href="#drinks">Drinks</a>
+          <a class="nav-linka fw-bold fs-5 active" href="#lavash" data-category="lavash">Lavash</a>
+          <a class="nav-link fw-bold fs-5" href="#burger" data-category="burger">Burger</a>
+          <a class="nav-link fw-bold fs-5" href="#pizza" data-category="pizza">Pizza</a>
+          <a class="nav-link fw-bold fs-5" href="#hotdog" data-category="hotdog">Hotdog</a>
+          <a class="nav-link fw-bold fs-5" href="#sandwich" data-category="sandwich">Sandwich</a>
+          <a class="nav-link fw-bold fs-5" href="#chips" data-category="chips">Chips</a>
+          <a class="nav-link fw-bold fs-5" href="#sous" data-category="sous">Sous</a>
+          <a class="nav-link fw-bold fs-5" href="#mix" data-category="mix">Mix</a>
+          <a class="nav-link fw-bold fs-5" href="#cake" data-category="cake">Cake</a>
+          <a class="nav-link fw-bold fs-5" href="#drinks" data-category="drinks">Drinks</a>
         </div>
     </div>
 
     <div class="col-md-9">
       <!-- Lavash Category -->
-      <div id="lavash" class="category-section">
+      <div id="lavash" class="category-section" data-category="lavash">
         <h2 class="text-center mb-4">Lavash</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'lavash')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
 
       <!-- Burger Category -->
-      <div id="burger" class="category-section" style="display: none;">
+      <div id="burger" class="category-section" data-category="burger">
         <h2 class="text-center mb-4">Burger</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'burger')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
 
       <!-- Pizza Category -->
-      <div id="pizza" class="category-section" style="display: none;">
+      <div id="pizza" class="category-section" data-category="pizza">
         <h2 class="text-center mb-4">Pizza</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'pizza')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
 
       <!-- Hotdog Category -->
-      <div id="hotdog" class="category-section" style="display: none;">
+      <div id="hotdog" class="category-section" data-category="hotdog">
         <h2 class="text-center mb-4">Hotdog</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'hotdog')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
 
       <!-- Sandwich Category -->
-      <div id="sandwich" class="category-section" style="display: none;">
+      <div id="sandwich" class="category-section" data-category="sandwich">
         <h2 class="text-center mb-4">Sandwich</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'sandwich')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
 
       <!-- Chips Category -->
-      <div id="chips" class="category-section" style="display: none;">
+      <div id="chips" class="category-section" data-category="chips">
         <h2 class="text-center mb-4">Chips</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'chips')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
 
       <!-- Sous Category -->
-      <div id="sous" class="category-section" style="display: none;">
+      <div id="sous" class="category-section" data-category="sous">
         <h2 class="text-center mb-4">Sous</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'sous')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
 
       <!-- Mix Category -->
-      <div id="mix" class="category-section" style="display: none;">
+      <div id="mix" class="category-section" data-category="mix">
         <h2 class="text-center mb-4">Mix</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'mix')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
 
       <!-- Cake Category -->
-      <div id="cake" class="category-section" style="display: none;">
+      <div id="cake" class="category-section" data-category="cake">
         <h2 class="text-center mb-4">Cake</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'cake')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
 
       <!-- Drinks Category -->
-      <div id="drinks" class="category-section" style="display: none;">
+      <div id="drinks" class="category-section" data-category="drinks">
         <h2 class="text-center mb-4">Drinks</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <!-- Products will be loaded here dynamically -->
+          {{#each categories}}
+            {{#if (eq this.name 'drinks')}}
+              {{#each this.products}}
+              <div class="col" data-product-id="{{this._id}}">
+                <div class="card h-100">
+                  <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" style="height: 200px; object-fit: cover;">
+                  <button class="btn-heart">
+                    <i class="bx bx-heart"></i>
+                  </button>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold fs-5">{{this.name}}</h5>
+                    <p class="card-text fw-bold">{{this.price}} so'm</p>
+                    <button class="btn btn-outline-success add-btn w-100">+ Add</button>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            {{/if}}
+          {{/each}}
         </div>
       </div>
     </div>
@@ -250,20 +449,13 @@
   </div>
 </footer>
 
-<!-- Admin Logout Button -->
-<div id="adminLogoutBtn" style="position: fixed; bottom: 20px; right: 20px; display: none;">
-  <button onclick="logout()" class="btn btn-outline-danger btn-lg">
-    <i class="fas fa-sign-out-alt"></i> Chiqish
-  </button>
-</div>
-
 
       
       <div class="modal fade" id="favModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-sm">
-      <div class="modal-content" style="border: 3px solid purple; background-color: #E8FAF0;">
-        <div class="modal-body text-center" style="color: white">
-          Mahsulot sevimlilar safiga qo'shildi!
+      <div class="modal-content" style="border: 3px solid green; background-color: #E8FAF0;">
+        <div class="modal-body text-center" style="color: #44f18f;">
+          💚 Mahsulot sevimlilar safiga qo'shildi! 💚
         </div>
       </div>
     </div>
@@ -389,7 +581,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="index.js"></script>
+<script src="/index.js"></script>
 
 <script>
 // Hide loading screen when page is fully loaded
@@ -424,119 +616,97 @@ document.addEventListener('DOMContentLoaded', async function() {
   updateCartBadge();
   updateFavoritesBadge();
   
-  // Check if user is admin
-  let isAdmin = false;
-  try {
-    const adminCheck = await fetch('/api/check-admin');
-    console.log('Admin check response status:', adminCheck.status);
-    if (adminCheck.ok) {
-      const data = await adminCheck.json();
-      isAdmin = data.isAdmin;
-      console.log('Is Admin:', isAdmin);
-      if (isAdmin) {
-        console.log('✅ Admin session active - buttons will be shown');
-      } else {
-        console.log('❌ No admin session - buttons hidden');
+  // Show all categories initially
+  const categories = document.querySelectorAll('.category-section');
+  categories.forEach(category => {
+    category.style.display = 'block';
+    // Ensure each category has enough height for proper scrolling
+    category.style.minHeight = '100vh';
+  });
+  
+  // Add scroll event listener for automatic category switching
+  const menuLinks = document.querySelectorAll('#menu-tab a');
+  
+  // Function to update active category based on scroll
+  function updateActiveCategory() {
+    const scrollPosition = window.scrollY + window.innerHeight / 3; // Use 1/3 of viewport height for better detection
+    let activeCategory = null;
+    
+    // Find the category that is currently in view
+    for (let i = 0; i < categories.length; i++) {
+      const category = categories[i];
+      const categoryTop = category.offsetTop;
+      const categoryBottom = categoryTop + category.offsetHeight;
+      
+      // Check if we're in this category (with some overlap tolerance)
+      if (scrollPosition >= categoryTop && scrollPosition < categoryBottom) {
+        activeCategory = category.getAttribute('id');
+        break; // Found the active category, exit loop
       }
     }
-  } catch (error) {
-    console.log('Admin check error:', error);
-  }
-  
-  try {
-    const response = await fetch('/api/products');
-    if (response.ok) {
-      const products = await response.json();
-      
-      // Group products by category
-      const categories = {
-        lavash: document.querySelector('#lavash .row'),
-        burger: document.querySelector('#burger .row'),
-        pizza: document.querySelector('#pizza .row'),
-        hotdog: document.querySelector('#hotdog .row'),
-        sandwich: document.querySelector('#sandwich .row'),
-        chips: document.querySelector('#chips .row'),
-        sous: document.querySelector('#sous .row'),
-        mix: document.querySelector('#mix .row'),
-        cake: document.querySelector('#cake .row'),
-        drinks: document.querySelector('#drinks .row')
-      };
-      
-      // Add products from database
-      products.forEach(product => {
-        const categoryRow = categories[product.category];
-        if (categoryRow) {
-          const col = document.createElement('div');
-          col.className = 'col';
-          col.setAttribute('data-product-id', product._id);
-          
-          // Check if product is in favorites
-          const isFavorite = favorites.some(f => f.name === product.name);
-          const heartClass = isFavorite ? 'bxs-heart' : 'bx-heart';
-          const btnHeartClass = isFavorite ? 'btn-heart active' : 'btn-heart';
-          
-          // Admin buttons HTML
-          const adminButtons = isAdmin ? `
-            <div class="admin-card-actions mt-2">
-              <button class="btn btn-sm btn-info admin-detail-btn" onclick="viewProductDetail('${product._id}')" title="Ko'rish">
-                <i class="fas fa-eye"></i> Ko'rish
-              </button>
-              <button class="btn btn-sm btn-warning admin-edit-btn" onclick="editProductCard('${product._id}')" title="Tahrirlash">
-                <i class="fas fa-edit"></i> Edit
-              </button>
-              <button class="btn btn-sm btn-danger admin-delete-btn" onclick="deleteProductCard('${product._id}')" title="O'chirish">
-                <i class="fas fa-trash"></i> Delete
-              </button>
-            </div>
-          ` : '';
-          if (isAdmin) {
-            console.log(`✅ Admin buttons added for: ${product.name}`);
-          }
-          
-          col.innerHTML = `
-            <div class="card h-100">
-              <img src="${product.image}" class="card-img-top" alt="${product.name}" style="height: 200px; object-fit: cover;">
-              <button class="${btnHeartClass}">
-                <i class="bx ${heartClass}"></i>
-              </button>
-              <div class="card-body">
-                <h5 class="card-title fw-bold fs-5">${product.name}</h5>
-                <p class="card-text fw-bold">${product.price.toLocaleString()} so'm</p>
-                <button class="btn btn-outline-success add-btn w-100">+ Add</button>
-                ${adminButtons}
-              </div>
-            </div>
-          `;
-          categoryRow.appendChild(col);
-        }
+    
+    // If no category is active, find the closest one
+    if (!activeCategory && categories.length > 0) {
+      const distances = Array.from(categories).map(category => {
+        const categoryTop = category.offsetTop;
+        return Math.abs(scrollPosition - categoryTop);
       });
       
-      console.log('Products loaded successfully:', products.length);
+      const minDistance = Math.min(...distances);
+      const closestIndex = distances.indexOf(minDistance);
+      activeCategory = categories[closestIndex].getAttribute('id');
     }
-  } catch (error) {
-    console.log('Could not load products from database:', error);
+    
+    if (activeCategory) {
+      // Update menu active state
+      menuLinks.forEach(link => {
+        if (link.getAttribute('href').substring(1) === activeCategory) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
   }
+  
+  // Listen for scroll events with throttling for performance
+  let ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        updateActiveCategory();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+  
+  // Initial check
+  updateActiveCategory();
   
   // Add click event listeners for category navigation
   document.querySelectorAll('#menu-tab a').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       
-      // Hide all categories
-      document.querySelectorAll('.category-section').forEach(section => {
-        section.style.display = 'none';
-      });
-      
-      // Show selected category
-      const target = this.getAttribute('href').substring(1);
-      const targetSection = document.getElementById(target);
-      if (targetSection) {
-        targetSection.style.display = 'block';
-      }
-      
       // Update active state
-      document.querySelectorAll('#menu-tab a').forEach(l => l.classList.remove('active'));
+      menuLinks.forEach(l => l.classList.remove('active'));
       this.classList.add('active');
+      
+      // Scroll to category
+      const targetCategory = this.getAttribute('href').substring(1); // Get id from href
+      const targetElement = document.getElementById(targetCategory);
+      if (targetElement) {
+        // Calculate offset to account for fixed navbar and add some padding
+        const offsetTop = targetElement.offsetTop - 120;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+        
+        // Update active category after scrolling
+        setTimeout(updateActiveCategory, 300);
+      }
     });
   });
 });  
@@ -617,25 +787,6 @@ function saveCart() {
   updateCartBadge();
 }
 
-// Update cart badge
-function updateCartBadge() {
-  const badge = document.getElementById('cartBadge');
-  const cart = JSON.parse(localStorage.getItem('mixburger_cart_v1') || '[]');
-  const total = cart.reduce((sum, item) => sum + item.qty, 0);
-  
-  if (badge) {
-    if (total > 0) {
-      badge.textContent = total;
-      badge.style.display = 'block';
-      // Add bounce animation
-      badge.style.animation = 'none';
-      setTimeout(() => badge.style.animation = 'badgePulse 0.5s ease', 10);
-    } else {
-      badge.style.display = 'none';
-    }
-  }
-}
-
 function loadFavorites() {
   try {
     const data = localStorage.getItem(FAVORITES_KEY);
@@ -648,6 +799,22 @@ function loadFavorites() {
 function saveFavorites() {
   localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
   updateFavoritesBadge();
+}
+
+function updateCartBadge() {
+  const badge = document.getElementById('cartBadge');
+  const total = cart.reduce((sum, item) => sum + item.qty, 0);
+  if (badge) {
+    if (total > 0) {
+      badge.textContent = total;
+      badge.style.display = 'block';
+      // Add bounce animation
+      badge.style.animation = 'none';
+      setTimeout(() => badge.style.animation = 'badgePulse 0.5s ease', 10);
+    } else {
+      badge.style.display = 'none';
+    }
+  }
 }
 
 function updateFavoritesBadge() {
@@ -705,7 +872,6 @@ if (clearCartBtn) {
     cart = [];
     saveCart();
     renderCart();
-    updateCartBadge(); // Update cart badge after clearing
   });
 }
 
@@ -766,7 +932,6 @@ function toggleFavorite(product, heartBtn) {
   }
   
   saveFavorites();
-  updateFavoritesBadge(); // Update favorites badge after adding/removing
 }
 
 function addToCart(name, price) {
@@ -776,7 +941,6 @@ function addToCart(name, price) {
 
   saveCart();
   renderCart();
-  updateCartBadge(); // Update cart badge after adding
 
   if (addToastEl && addToast) {
     document.querySelector('#addToast .toast-body').textContent = `${name} savatchaga qo'shildi!`;
@@ -818,7 +982,6 @@ function renderCart() {
     cart[i].qty++;
     saveCart();
     renderCart();
-    updateCartBadge(); // Update cart badge after increasing quantity
   });
 
   document.querySelectorAll('.qty-minus').forEach(b => b.onclick = () => {
@@ -827,7 +990,6 @@ function renderCart() {
     else cart.splice(i, 1);
     saveCart();
     renderCart();
-    updateCartBadge(); // Update cart badge after decreasing quantity
   });
 
   document.querySelectorAll('[data-remove]').forEach(b => b.onclick = () => {
@@ -835,7 +997,6 @@ function renderCart() {
     cart.splice(i, 1);
     saveCart();
     renderCart();
-    updateCartBadge(); // Update cart badge after removing item
   });
 }
 
@@ -891,7 +1052,6 @@ function renderFavorites() {
       favorites.splice(index, 1);
       saveFavorites();
       renderFavorites();
-      updateFavoritesBadge(); // Update favorites badge after removing
       
       // Update heart icon on product card
       const cards = document.querySelectorAll('.card');
@@ -932,7 +1092,6 @@ orderForm.addEventListener('submit', async (e) => {
   let lines = [];
   lines.push('*Yangi buyurtma*', '');
   lines.push(`👤 Ism: ${name}`);
-  lines.push(`🧾 Familiya: ${surname}`);
   lines.push(`📞 Telefon: ${phone}`);
   lines.push(`📍 Viloyat: ${region}`, '', '🍔 Mahsulotlar:');
   cart.forEach(it => lines.push(`• ${it.name} — ${it.qty} dona (${it.price.toLocaleString()} so'm)`));
@@ -955,7 +1114,6 @@ orderForm.addEventListener('submit', async (e) => {
       cart = [];
       saveCart();
       renderCart();
-      updateCartBadge(); // Update cart badge after order
       orderForm.reset();
     } else {
       alert('Xatolik: buyurtma yuborilmadi ');
@@ -980,14 +1138,11 @@ if (!toggleBtn) {
   navbar.prepend(toggleBtn);
 }
 
-// Tugmaga bosilganda menyu ochiladi/yopiladi (only for screens below 768px)
+// Tugmaga bosilganda menyu ochiladi/yopiladi
 toggleBtn.addEventListener('click', () => {
-  // Only apply slide effect for screens below 768px
-  if (window.innerWidth < 768) {
-    menuTab.classList.toggle('open');
-    if (menuOverlay) {
-      menuOverlay.classList.toggle('active');
-    }
+  menuTab.classList.toggle('open');
+  if (menuOverlay) {
+    menuOverlay.classList.toggle('active');
   }
 });
 
@@ -999,302 +1154,97 @@ if (menuOverlay) {
   });
 }
 
-// Menyudagi link bosilganda menyu yopiladi (only for screens below 768px)
+// Menyudagi link bosilganda menyu yopiladi
 document.querySelectorAll('#menu-tab a').forEach(link => {
   link.addEventListener('click', () => {
-    // Only apply slide effect for screens below 768px
-    if (window.innerWidth < 768) {
-      menuTab.classList.remove('open');
-      if (menuOverlay) {
-        menuOverlay.classList.remove('active');
-      }
+    menuTab.classList.remove('open');
+    if (menuOverlay) {
+      menuOverlay.classList.remove('active');
     }
   });
 });
 
-// === NAVBAR ICONLARNI MENU ICHIGA QO'SHISH (MOBILE) ===
-
-// === DARK MODE FUNCTIONALITY ===
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
-const THEME_KEY = 'mixburger_theme';
-
-// Load saved theme
-function loadTheme() {
-  const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
-  applyTheme(savedTheme);
+// Helper function for Handlebars
+function eq(a, b) {
+  return a === b;
 }
 
-// Apply theme
-function applyTheme(theme) {
-  if (theme === 'dark') {
-    document.body.classList.add('dark-mode');
-    if (themeIcon) {
-      themeIcon.classList.remove('bx-moon');
-      themeIcon.classList.add('bx-sun');
-    }
-  } else {
-    document.body.classList.remove('dark-mode');
-    if (themeIcon) {
-      themeIcon.classList.remove('bx-sun');
-      themeIcon.classList.add('bx-moon');
-    }
-  }
-  localStorage.setItem(THEME_KEY, theme);
-}
-
-// Toggle theme
-if (themeToggle) {
-  themeToggle.addEventListener('click', () => {
-    const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    applyTheme(newTheme);
-  });
-}
-
-// Initialize theme on page load
-loadTheme();
-
-// Fix navigation scroll issue - smooth scroll without white space
-document.addEventListener('DOMContentLoaded', function() {
-  const navLinks = document.querySelectorAll('#menu-tab a');
-  
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      // Remove active from all
-      navLinks.forEach(l => l.classList.remove('active'));
-      // Add active to clicked
-      this.classList.add('active');
-      
-      // Get target section
-      const targetId = this.getAttribute('href');
-      if (targetId) {
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          // Calculate offset to account for fixed navbar
-          const navbarHeight = document.querySelector('.navbara').offsetHeight;
-          const targetPosition = targetSection.offsetTop - navbarHeight - 20;
-          
-          // Smooth scroll to section
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }
-    });
-  });
-  
-  // Update active menu on scroll
-  window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbara');
-    const currentScroll = window.pageYOffset;
-    
-    // Navbar scroll effect
-    if (currentScroll > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-    
-    // Update active menu based on scroll position
-    const sections = document.querySelectorAll('.category-section');
-    const navbarHeight = navbar.offsetHeight;
-    
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - navbarHeight - 100;
-      const sectionBottom = sectionTop + section.offsetHeight;
-      
-      if (currentScroll >= sectionTop && currentScroll < sectionBottom) {
-        const sectionId = section.getAttribute('id');
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  });
-  
-  // Add intersection observer for card animations
-  const cards = document.querySelectorAll('.card');
-  const cardObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }, index * 50);
-      }
-    });
-  }, {
-    threshold: 0.1
-  });
-  
-  // Initially hide cards for animation
-  cards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    cardObserver.observe(card);
-  });
-  
-  // Update favorites badge
-  function updateFavoritesBadge() {
-    const badge = document.getElementById('favoritesBadge');
-    const favorites = JSON.parse(localStorage.getItem('mixburger_favorites_v1') || '[]');
-    
-    if (badge) {
-      if (favorites.length > 0) {
-        badge.textContent = favorites.length;
-        badge.style.display = 'block';
-        // Add bounce animation
-        badge.style.animation = 'none';
-        setTimeout(() => badge.style.animation = 'badgePulse 0.5s ease', 10);
-      } else {
-        badge.style.display = 'none';
-      }
-    }
-  }
-  
-  // Initialize favorites badge on page load
-  updateFavoritesBadge();
-  
-  // Initialize cart badge on page load
-  updateCartBadge();
-  
-  // Add double-click event to logo for admin panel access
-  const logoImage = document.getElementById('logoImage');
-  if (logoImage) {
-    let clickCount = 0;
-    let clickTimer = null;
-    
-    logoImage.addEventListener('click', function() {
-      clickCount++;
-      
-      if (clickCount === 1) {
-        // Start timer to reset click count
-        clickTimer = setTimeout(() => {
-          clickCount = 0;
-        }, 300); // 300ms timeout for double-click
-      } else if (clickCount === 2) {
-        // Double-click detected
-        clearTimeout(clickTimer);
-        clickCount = 0;
-        // Navigate to admin panel login
-        window.location.href = '/admin-login';
-      }
-    });
-  }
-});
-// === ADMIN PRODUCT MANAGEMENT FUNCTIONS ===
-
-// View product detail
-async function viewProductDetail(productId) {
+// Function to check if user is admin and show admin actions
+async function checkAndShowAdminActions() {
   try {
-    const response = await fetch(`/api/products/${productId}`);
-    if (response.ok) {
-      const product = await response.json();
-      
-      document.getElementById('detailImage').src = product.image;
-      document.getElementById('detailName').textContent = product.name;
-      document.getElementById('detailPrice').textContent = product.price.toLocaleString();
-      document.getElementById('detailCategory').textContent = product.category;
-      document.getElementById('detailId').textContent = product._id;
-      
-      new bootstrap.Modal(document.getElementById('adminDetailModal')).show();
-    } else {
-      alert('Mahsulot ma\'lumotlarini yuklashda xatolik');
-    }
-  } catch (error) {
-    alert('Tarmoq xatosi');
-  }
-}
-
-// Edit product
-async function editProductCard(productId) {
-  try {
-    const response = await fetch(`/api/products/${productId}`);
-    if (response.ok) {
-      const product = await response.json();
-      
-      document.getElementById('editProductId').value = product._id;
-      document.getElementById('editProductName').value = product.name;
-      document.getElementById('editProductPrice').value = product.price;
-      document.getElementById('editProductImage').value = product.image;
-      document.getElementById('editProductCategory').value = product.category;
-      
-      new bootstrap.Modal(document.getElementById('adminEditModal')).show();
-    } else {
-      alert('Mahsulot ma\'lumotlarini yuklashda xatolik');
-    }
-  } catch (error) {
-    alert('Tarmoq xatosi');
-  }
-}
-
-// Save product edit
-async function saveProductEdit() {
-  const productId = document.getElementById('editProductId').value;
-  const data = {
-    name: document.getElementById('editProductName').value,
-    price: parseFloat(document.getElementById('editProductPrice').value),
-    image: document.getElementById('editProductImage').value,
-    category: document.getElementById('editProductCategory').value
-  };
-  
-  try {
-    const response = await fetch(`/admin/products/${productId}`, {
-      method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
-    });
+    // Check if user is admin
+    const response = await fetch('/api/check-admin');
+    const data = await response.json();
     
-    if (response.ok) {
-      bootstrap.Modal.getInstance(document.getElementById('adminEditModal')).hide();
-      alert('Mahsulot muvaffaqiyatli tahrirlandi!');
-      location.reload();
-    } else {
-      alert('Xatolik yuz berdi');
-    }
-  } catch (error) {
-    alert('Tarmoq xatosi');
-  }
-}
-
-// Delete product
-async function deleteProductCard(productId) {
-  if (confirm('Bu mahsulotni o\'chirishni xohlaysizmi?')) {
-    try {
-      const response = await fetch(`/admin/products/${productId}`, {
-        method: 'DELETE'
+    // If user is admin, show admin actions
+    if (data.isAdmin) {
+      const adminActions = document.querySelectorAll('.admin-card-actions');
+      adminActions.forEach(action => {
+        action.style.display = 'block';
       });
-      
-      if (response.ok) {
-        // Animate and remove card
-        const card = document.querySelector(`[data-product-id="${productId}"]`);
-        if (card) {
-          card.style.transition = 'all 0.5s ease';
-          card.style.transform = 'scale(0)';
-          card.style.opacity = '0';
-          
-          setTimeout(() => {
-            card.remove();
-            alert('Mahsulot muvaffaqiyatli o\'chirildi!');
-          }, 500);
-        }
-      } else {
-        alert('Xatolik yuz berdi');
-      }
-    } catch (error) {
-      alert('Tarmoq xatosi');
     }
+  } catch (error) {
+    console.error('Error checking admin status:', error);
   }
 }
-</script>
 
-</body>
-</html>
+// Call this function when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  checkAndShowAdminActions();
+});
+
+// Clear admin session on page load to ensure clean state
+window.addEventListener('load', function() {
+  // Clear any existing session data
+  fetch('/api/clear-session', { method: 'POST' })
+    .then(() => {
+      console.log('Session cleared');
+      // Hide all admin actions initially
+      const adminActions = document.querySelectorAll('.admin-card-actions');
+      adminActions.forEach(action => {
+        action.style.display = 'none';
+      });
+    })
+    .catch(error => {
+      console.error('Error clearing session:', error);
+    });
+});
+
+// Check admin status on page load and show/hide admin actions accordingly
+window.addEventListener('load', function() {
+  // Check if user is admin and show/hide admin actions
+  fetch('/api/check-admin')
+    .then(response => response.json())
+    .then(data => {
+      const adminActions = document.querySelectorAll('.admin-card-actions');
+      if (data.isAdmin) {
+        // Show admin actions if user is admin
+        adminActions.forEach(action => {
+          action.style.display = 'block';
+        });
+        // Show logout button and hide admin panel button
+        const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+        const adminPanelBtn = document.getElementById('adminPanelBtn');
+        if (adminLogoutBtn) adminLogoutBtn.style.display = 'block';
+        if (adminPanelBtn) adminPanelBtn.style.display = 'none';
+      } else {
+        // Hide admin actions if user is not admin
+        adminActions.forEach(action => {
+          action.style.display = 'none';
+        });
+        // Hide logout button and show admin panel button
+        const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+        const adminPanelBtn = document.getElementById('adminPanelBtn');
+        if (adminLogoutBtn) adminLogoutBtn.style.display = 'none';
+        if (adminPanelBtn) adminPanelBtn.style.display = 'block';
+      }
+    })
+    .catch(error => {
+      console.error('Error checking admin status:', error);
+      // Hide admin actions if there's an error
+      const adminActions = document.querySelectorAll('.admin-card-actions');
+      adminActions.forEach(action => {
+        action.style.display = 'none';
+      });
+    });
+});

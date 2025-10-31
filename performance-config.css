@@ -1,0 +1,65 @@
+/* Defer non-critical animations */
+@media (prefers-reduced-motion: no-preference) {
+  .card {
+    animation: fadeInUp 0.5s ease;
+  }
+}
+
+/* Image optimization hints */
+img {
+  content-visibility: auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Font display optimization */
+@font-face {
+  font-display: swap;
+}
+
+/* GPU acceleration for smooth animations */
+.card,
+.btn,
+.nav-link,
+#cartPanel,
+#favoritesPanel,
+#menu-tab {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Contain layout shifts */
+.card-img-top {
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+/* Optimize renders */
+.list-group-item,
+.card,
+.nav-link {
+  contain: layout style paint;
+}
+
+/* Smooth scrolling optimization */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Critical rendering path optimization */
+.above-fold {
+  will-change: transform, opacity;
+}
+
+.below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}

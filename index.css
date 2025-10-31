@@ -33,6 +33,8 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
@@ -140,7 +142,7 @@ body {
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -149,13 +151,19 @@ body {
 }
 
 .card:hover img {
-  transform: scale(1.06);
+  transform: scale(1.1);
 }
 
 /* Ensure each category section is visible for scroll-based navigation */
-.tab-content .tab-pane {
-  display: block !important;
-  scroll-margin-top: 90px;
+.category-section {
+  min-height: 300px;
+  padding: 30px 0;
+  scroll-margin-top: 100px;
+}
+
+.category-section:last-child {
+  padding-bottom: 60px;
+  min-height: 250px;
 }
  
 .btn-heart {
@@ -165,14 +173,26 @@ body {
   border: none;
   outline: none;
   color: rgb(255, 0, 43);
-  background: transparent;
+  background: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  height: 30px;
-  width: 30px;
-  border-radius: 5px;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.btn-heart:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255, 0, 43, 0.3);
+}
+
+.btn-heart.active {
+  background: rgba(255, 0, 43, 0.1);
 }
 
 #heart {
@@ -182,8 +202,91 @@ body {
 }
 
 .btn-heart.active #heart {
-  color: rgb(255, 50, 80);
-  transform: scale(1.3);
+  color: rgb(255, 0, 43);
+  transform: scale(1.2);
+}
+
+/* Admin card action buttons */
+.admin-card-actions {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.admin-card-actions .btn {
+  flex: 1;
+  min-width: 70px;
+  font-size: 0.75rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.admin-detail-btn {
+  background: linear-gradient(135deg, #17a2b8, #138496) !important;
+  border: none !important;
+  color: white !important;
+}
+
+.admin-detail-btn:hover {
+  background: linear-gradient(135deg, #138496, #117a8b) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
+}
+
+.admin-edit-btn {
+  background: linear-gradient(135deg, #ffc107, #e0a800) !important;
+  border: none !important;
+  color: #000 !important;
+}
+
+.admin-edit-btn:hover {
+  background: linear-gradient(135deg, #e0a800, #d39e00) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.admin-delete-btn {
+  background: linear-gradient(135deg, #dc3545, #c82333) !important;
+  border: none !important;
+  color: white !important;
+}
+
+.admin-delete-btn:hover {
+  background: linear-gradient(135deg, #c82333, #bd2130) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1.1); }
+  75% { transform: scale(1.25); }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes badgePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
 }
 
 .modal.fade .modal-dialog {
@@ -213,22 +316,24 @@ body {
   color: white;
 }
 
-/* Cart panel */
+/* Cart panel - improved slide animation */
 #cartPanel {
   position: fixed;
   top: 0;
   right: -420px;
   width: 400px;
-  height: 100%;
-  background: #fff;
-  box-shadow: -6px 0 18px rgba(0, 0, 0, 0.12);
+  height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  box-shadow: -6px 0 30px rgba(0, 0, 0, 0.2);
   padding: 18px;
-  transition: right 0.28s ease;
+  transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.3s ease;
   z-index: 2000;
   overflow-y: auto;
+  opacity: 0;
 }
 #cartPanel.open {
   right: 0;
+  opacity: 1;
 }
 .qty-btn {
   width: 36px;
@@ -252,8 +357,10 @@ body {
 .cart-header {
   position: sticky;
   top: 0;
-  background: #fff;
-  padding-bottom: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--main-purple-color);
+  margin-bottom: 10px;
   z-index: 10;
 }
 .toast-container {
@@ -283,41 +390,47 @@ body {
 #menu-tab .nav-linka:first-child {
   margin-top: 10px;
 }
+#menu-tab .nav-link,
+#menu-tab .nav-linka {
+  background: transparent;
+  color: black;
+  text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+#menu-tab .nav-link:hover,
+#menu-tab .nav-linka:hover {
+  background-color: var(--main-purple-color);
+  color: #fff;
+}
+
 #menu-tab .nav-link.active,
 #menu-tab .nav-linka.active {
   background-color: var(--main-purple-color) !important;
   color: #fff !important;
   border: none;
 }
-#menu-tab .nav-linka {
-  background: transparent;
-  color: black;
-}
-
-#menu-tab .nav-linka:hover {
-  background-color: var(--main-purple-color);
-  color: #fff;
-}
-
-#menu-tab .nav-linka.active {
-  background-color: var(--main-purple-color) !important;
-  color: #fff !important;
-}
 
 .cart-panel {
   position: fixed;
-  right: -400px;
+  right: -420px;
   top: 0;
   width: 400px;
   height: 100vh;
-  background: #fff;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-  transition: right 0.3s ease;
-  z-index: 999;
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  box-shadow: -6px 0 30px rgba(0, 0, 0, 0.2);
+  transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.3s ease;
+  z-index: 2000;
   overflow-y: auto;
+  opacity: 0;
 }
 .cart-panel.open {
   right: 0;
+  opacity: 1;
 }
 
 #loginModal .modal-content {
@@ -339,6 +452,8 @@ body {
   border-top: 1px solid rgba(81, 58, 115, 0.12);
   box-sizing: border-box;
   overflow: hidden;
+  animation: fadeIn 0.8s ease-in-out;
+  margin-top: auto;
 }
 
 .footer-section::before {
@@ -350,11 +465,22 @@ body {
   height: 280px;
   background: radial-gradient(ellipse at center, rgba(81,58,115,0.18), rgba(81,58,115,0) 60%);
   pointer-events: none;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
 
 .footer-logo-img {
   width: 120px;
   height: auto;
+  transition: transform 0.3s ease;
+}
+
+.footer-logo-img:hover {
+  transform: scale(1.05) rotate(3deg);
 }
 
 .footer-title {
@@ -431,8 +557,8 @@ html {
 /* Responsiv (mobil ekranlar uchun) */
 @media (max-width: 992px) {
   .footer-section {
-    margin-left: 0;
-    width: 100%;
+    margin-left: 0 !important;
+    width: 100% !important;
     padding: 48px 20px 28px 20px;
   }
 }
@@ -508,4 +634,810 @@ html {
   .contact-info i {
     font-size: 18px;
   }
+}
+/* === RESPONSIVE DESIGN === */
+#menuToggle {
+  display: none;
+  background: var(--main-purple-color);
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#menuToggle:hover {
+  background: var(--main-color-or);
+  transform: scale(1.05);
+}
+
+/* Mobile First Approach */
+@media (max-width: 992px) {
+  /* Show hamburger menu */
+  #menuToggle {
+    display: block;
+    position: fixed;
+    left: 15px;
+    top: 20px;
+    z-index: 3000;
+  }
+
+  /* Hide desktop navbar elements on mobile */
+  .navbar .contact-info {
+    display: none !important;
+  }
+
+  /* Adjust navbar for mobile */
+  .navbara {
+    padding: 10px 15px !important;
+  }
+
+  .navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Mobile action buttons container */
+  .position-fixed.top-0.end-0 {
+    position: fixed !important;
+    top: 15px !important;
+    right: 10px !important;
+    gap: 8px !important;
+    margin: 0 !important;
+  }
+
+  .position-fixed.top-0.end-0 .btn-zakaz {
+    display: none;
+  }
+
+  .position-fixed.top-0.end-0 button {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .position-fixed.top-0.end-0 .btn i {
+    font-size: 18px !important;
+  }
+
+  /* Side menu styling */
+  #menu-tab {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f8fc 100%);
+    box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 2500;
+    padding-top: 70px;
+    padding-bottom: 20px;
+    overflow-y: auto;
+  }
+
+  #menu-tab.open {
+    left: 0;
+  }
+
+  #menu-tab .nav-link,
+  #menu-tab .nav-linka {
+    font-size: 16px;
+    padding: 12px 20px;
+    margin: 5px 10px;
+  }
+  
+  /* Mobile navbar icons in menu */
+  #mobile-navbar-icons {
+    display: flex !important;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    border-top: 2px solid rgba(81, 58, 115, 0.1);
+    border-bottom: 2px solid rgba(81, 58, 115, 0.1);
+    margin: 20px 0;
+  }
+  
+  #mobile-navbar-icons button {
+    width: 100% !important;
+    height: 50px !important;
+    border-radius: 12px !important;
+    justify-content: center;
+    font-size: 16px;
+  }
+  
+  #mobile-navbar-icons .btn-zakaz {
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  #mobile-navbar-icons .contact-info {
+    display: flex !important;
+    width: 100%;
+    padding: 15px;
+    background: rgba(81, 58, 115, 0.05);
+    border-radius: 12px;
+    margin: 0 !important;
+  }
+
+  /* Main content adjustment */
+  .main-content {
+    margin-left: 0 !important;
+    padding: 15px;
+  }
+
+  .col-md-3 {
+    display: none;
+  }
+
+  .col-md-9 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  /* Product cards - 2 per row on tablet */
+  .row-cols-1 {
+    --bs-columns: 2;
+  }
+
+  .row-cols-md-2 {
+    --bs-columns: 2;
+  }
+
+  .row-cols-lg-3 {
+    --bs-columns: 2;
+  }
+
+  /* Footer responsive */
+  .footer-section {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 40px 20px 30px 20px;
+  }
+
+  .footer-section .row {
+    text-align: center;
+  }
+
+  .footer-section .col-md-4,
+  .footer-section .col-md-2,
+  .footer-section .col-md-3 {
+    width: 100%;
+    margin-bottom: 25px;
+  }
+
+  .social-links {
+    justify-content: center !important;
+  }
+
+  .app-links {
+    text-align: center;
+  }
+}
+
+/* Tablet specific (768px - 992px) */
+@media (min-width: 768px) and (max-width: 992px) {
+  .row-cols-1 {
+    --bs-columns: 3;
+  }
+
+  .row-cols-md-2 {
+    --bs-columns: 3;
+  }
+
+  .card-img-top {
+    height: 180px;
+    object-fit: cover;
+  }
+}
+
+/* Mobile specific (up to 768px) */
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px;
+  }
+
+  /* Adjust navbar for mobile */
+  .navbara {
+    padding: 10px 15px !important;
+  }
+
+  /* Navbar brand/logo */
+  .navbar-brand {
+    position: static !important;
+    transform: none !important;
+    margin-right: auto !important;
+  }
+
+  .navbar-brand img {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  /* Navbar icons container */
+  #navbar-icons {
+    gap: 15px !important;
+  }
+
+  /* Hide contact info on mobile */
+  .contact-info {
+    display: none !important;
+  }
+
+  /* Action buttons */
+  #navbar-icons button {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  #navbar-icons .btn i {
+    font-size: 18px !important;
+  }
+
+  /* Badge smaller */
+  .badge {
+    font-size: 8px !important;
+    padding: 2px 4px;
+  }
+
+  /* Product cards - 2 per row */
+  .row-cols-1 {
+    --bs-columns: 2;
+  }
+
+  .card {
+    margin-bottom: 15px;
+  }
+
+  .card-img-top {
+    height: 140px;
+    object-fit: cover;
+  }
+
+  .card-title {
+    font-size: 14px !important;
+  }
+
+  .card-text {
+    font-size: 13px !important;
+  }
+
+  .add-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  /* Cart and Favorites panels full width */
+  #cartPanel,
+  #favoritesPanel {
+    width: 100% !important;
+    right: -100% !important;
+  }
+
+  #cartPanel.open,
+  #favoritesPanel.open {
+    right: 0 !important;
+  }
+
+  /* Section headings */
+  .tab-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  /* Horizontal scrollable menu below header */
+  .col-md-3 {
+    display: block !important;
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  #menu-tab {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    transition: none !important;
+    z-index: auto !important;
+    padding: 10px 0 !important;
+    overflow-y: hidden !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+  }
+
+  #menu-tab .nav-link,
+  #menu-tab .nav-linka {
+    flex: 0 0 auto !important;
+    display: inline-block !important;
+    width: auto !important;
+    margin: 0 5px !important;
+    border-radius: 20px !important;
+    font-size: 14px !important;
+    padding: 8px 15px !important;
+  }
+
+  #menu-tab .nav-link:first-child,
+  #menu-tab .nav-linka:first-child {
+    margin-left: 15px !important;
+  }
+
+  #menu-tab .nav-link:last-child,
+  #menu-tab .nav-linka:last-child {
+    margin-right: 15px !important;
+  }
+
+  /* Hide mobile menu toggle button for 768px breakpoint */
+  #menuToggle {
+    display: none !important;
+  }
+
+  /* Hide mobile navbar icons container */
+  #mobile-navbar-icons {
+    display: none !important;
+  }
+
+  /* Hide menu overlay */
+  .menu-overlay {
+    display: none !important;
+  }
+}
+
+/* Small mobile (up to 576px) */
+@media (max-width: 576px) {
+  .navbar-brand img {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  /* Action buttons smaller */
+  .position-fixed.top-0.end-0 button {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  .position-fixed.top-0.end-0 .btn i {
+    font-size: 16px !important;
+  }
+
+  /* Badge smaller */
+  .badge {
+    font-size: 8px !important;
+    padding: 2px 4px;
+  }
+
+  /* Product cards smaller */
+  .card-img-top {
+    height: 120px;
+  }
+
+  .card-title {
+    font-size: 12px !important;
+  }
+
+  .card-text {
+    font-size: 11px !important;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .add-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .btn-heart {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .btn-heart i {
+    font-size: 16px !important;
+  }
+
+  /* Menu text smaller */
+  #menu-tab .nav-link,
+  #menu-tab .nav-linka {
+    font-size: 15px;
+    padding: 10px 15px;
+  }
+
+  /* Footer text smaller */
+  .footer-title {
+    font-size: 16px;
+  }
+
+  .footer-text,
+  .footer-link,
+  .footer-contact {
+    font-size: 12px;
+  }
+
+  .footer-logo-img {
+    width: 90px;
+  }
+
+  .social-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  /* Section headings */
+  .tab-content h2 {
+    font-size: 20px;
+  }
+}
+
+/* Large screens (1200px+) */
+@media (min-width: 1200px) {
+  .row-cols-lg-3 {
+    --bs-columns: 4;
+  }
+
+  .card-img-top {
+    height: 220px;
+  }
+}
+
+/* Extra large screens (1400px+) */
+@media (min-width: 1400px) {
+  .container-fluid {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .row-cols-lg-3 {
+    --bs-columns: 4;
+  }
+}
+/* Touch-friendly enhancements */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase tap targets for mobile */
+  .btn-heart {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .add-btn {
+    min-height: 44px;
+    font-size: 14px;
+  }
+
+  .nav-link,
+  .nav-linka {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Remove hover effects on touch devices */
+  .card:hover {
+    transform: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+}
+
+/* Button hover effects */
+.btn-heart:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+.add-btn:hover {
+  background-color: #28a745 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Navigation active state */
+.nav-pills .nav-link.active {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+/* Card hover effects */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Loading animation for images */
+.card-img-top {
+  transition: opacity 0.3s ease;
+}
+
+.card-img-top:not([src]) {
+  opacity: 0.5;
+  background-color: #f8f9fa;
+}
+
+/* Better button groups */
+.btn-group .btn {
+  border-radius: 8px !important;
+  margin: 0 2px;
+}
+
+.btn-group .btn:first-child {
+  margin-left: 0;
+}
+
+.btn-group .btn:last-child {
+  margin-right: 0;
+}/*
+ Button group hover effects */
+.btn-group .btn-outline-info:hover {
+  background-color: #17a2b8 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
+}
+
+.btn-group .btn-outline-warning:hover {
+  background-color: #ffc107 !important;
+  color: black !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.btn-group .btn-outline-danger:hover {
+  background-color: #dc3545 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Modal animations */
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+}
+
+/* Card delete animation */
+.card-deleting {
+  animation: cardDelete 0.3s ease-out forwards;
+}
+
+@keyframes cardDelete {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Toast positioning */
+.toast {
+  min-width: 300px;
+}
+
+/* Product detail modal styling */
+.product-details ul li {
+  padding: 0.25rem 0;
+}
+
+.product-details .fas {
+  width: 16px;
+}
+
+/* Button group responsive */
+@media (max-width: 576px) {
+  .btn-group .btn {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+  }
+  
+  .btn-group .btn i {
+    font-size: 0.8rem;
+  }
+}/* 3-b
+utton group hover effects */
+.btn-group .btn-outline-info:hover {
+  background-color: #17a2b8 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
+}
+
+.btn-group .btn-outline-warning:hover {
+  background-color: #ffc107 !important;
+  color: black !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.btn-group .btn-outline-danger:hover {
+  background-color: #dc3545 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Responsive for small screens - 2 cards per row */
+@media (max-width: 768px) {
+  .row-cols-lg-3 > * {
+    width: 50% !important;
+  }
+  
+  .row-cols-md-2 > * {
+    width: 50% !important;
+  }
+  
+  .btn-group .btn {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+  }
+  
+  .contact-info {
+    display: none !important;
+  }
+  
+  .navbar .gap-4 {
+    gap: 0.5rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .row-cols-1 > * {
+    width: 50% !important;
+  }
+}
+
+/* Navigation scroll fix - CRITICAL FIX */
+.nav-pills .nav-link {
+  cursor: pointer;
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--main-purple-color) !important;
+}
+
+/* Fix scroll issue - scroll to content properly */
+.tab-pane {
+  scroll-margin-top: 100px;
+}
+
+.main-content {
+  scroll-margin-top: 100px;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+/* Add spacing between category sections for better scrolling */
+.category-section {
+  padding: 20px 0;
+  margin-bottom: 40px;
+  min-height: 100vh;
+}
+
+/* Ensure each category section has enough height for proper detection */
+.category-section:last-child {
+  margin-bottom: 60px;
+}
+
+/* Ensure all category sections are visible */
+.category-section {
+  display: block !important;
+}
+
+/* Card animations */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Card active state for mobile tap */
+.card:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+.btn:active,
+.add-btn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+/* Improve scrollbar for mobile */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-purple-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--main-color-or);
+}
+
+/* Loading skeleton for images */
+.card-img-top[src=""],
+.card-img-top:not([src]) {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Better focus states for accessibility */
+.btn:focus,
+.nav-link:focus,
+input:focus,
+button:focus {
+  outline: 2px solid var(--main-purple-color);
+  outline-offset: 2px;
+}
+
+/* Overlay for mobile menu */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2400;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }

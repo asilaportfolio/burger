@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Mix Burger</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .sidebar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            z-index: 1000;
+            transition: left 0.3s ease;
+        }
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.8);
+            border-radius: 10px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .main-content {
+            background: #f8f9fa;
+            min-height: 100vh;
+            margin-left: 250px;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+        .btn-group .btn {
+            border-radius: 8px !important;
+            margin: 0 2px;
+            transition: all 0.3s ease;
+        }
+        /* Hover effect for CRUD buttons - icon only buttons */
+        .btn-group .btn-info:hover {
+            background-color: #17a2b8 !important;
+            color: white !important;
+        }
+        .btn-group .btn-warning:hover {
+            background-color: #ffc107 !important;
+            color: white !important;
+        }
+        .btn-group .btn-danger:hover {
+            background-color: #dc3545 !important;
+            color: white !important;
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+        .admin-header {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -250px;
+            }
+            .sidebar.show {
+                left: 0;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .mobile-toggle {
+                display: block !important;
+                position: fixed;
+                top: 10px;
+                left: 10px;
+                z-index: 1001;
+                background: #667eea;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 8px;
+            }
+            .table-responsive {
+                font-size: 0.85rem;
+            }
+            .btn-group .btn {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.5rem;
+            }
+            /* Show add product button on mobile */
+            .admin-header .btn-success {
+                display: inline-block !important;
+            }
+        }
+        .mobile-toggle {
+            display: none;
+        }
+        /* Hide add product button on desktop */
+        @media (min-width: 769px) {
+            .admin-header .btn-success {
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar p-3" id="sidebar">
+                <div class="text-center mb-4">
+                    <img src="/img/logo.svg" alt="Logo" width="50" height="50" id="adminLogoImage">
+                    <h5 class="mt-2">Mix Burger</h5>
+                    <small>Admin Panel</small>
+                </div>
+                
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="#dashboard" data-bs-toggle="pill">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="/admin-logout" style="background: rgba(220, 53, 69, 0.2);">
+                        <i class="fas fa-sign-out-alt me-2"></i>Chiqish
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 main-content p-4">
+                <div class="admin-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0"><i class="fas fa-user-shield me-2 text-primary"></i>Welcome admin!</h4>
+                    <div>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                            <i class="fas fa-plus-circle me-2"></i>Mahsulot qo'shish
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <!-- Dashboard -->
+                    <div class="tab-pane fade show active" id="dashboard">
+                        <h2 class="mb-4">Dashboard</h2>
+                        
+                        <div class="row mb-4">
+                            <!-- Stats cards removed as per user request -->
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-box me-2"></i>Mahsulotlar</h5>
+                            </div>
+                            <div class="card-body">
+                                {{#if products}}
+                                    <div class="row">
+                                        {{#each products}}
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card h-100" data-product-id="{{this._id}}">
+                                                <img src="{{this.image}}" class="card-img-top product-image" alt="{{this.name}}" onerror="this.src='/img/placeholder.png'">
+                                                <div class="card-body d-flex flex-column">
+                                                    <h5 class="card-title">{{this.name}}</h5>
+                                                    <p class="card-text">
+                                                        <strong>Kategoriya:</strong> {{this.category}}<br>
+                                                        <strong>Narxi:</strong> {{this.price}} so'm
+                                                    </p>
+                                                    <div class="mt-auto">
+                                                        <div class="btn-group w-100" role="group">
+                                                            <button class="btn btn-sm btn-info" onclick="viewProductDetail('{{this._id}}')" title="Ko'rish">
+                                                                <i class="fas fa-eye"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-warning" onclick="editProductCard('{{this._id}}')" title="Tahrirlash">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-danger" onclick="deleteProductCard('{{this._id}}')" title="O'chirish">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                {{else}}
+                                    <p class="text-muted">Hozircha mahsulotlar yo'q</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+
+
+
+    <!-- Mahsulot qo'shish modal oynasi -->
+    <div class="modal fade" id="addProductModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Yangi mahsulot qo'shish</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label class="form-label">Mahsulot nomi</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Narxi (so'm)</label>
+                            <input type="number" name="price" class="form-control" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Rasm URL</label>
+                            <input type="url" name="image" class="form-control" placeholder="https://example.com/image.jpg" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Kategoriya</label>
+                            <select name="category" class="form-select" required>
+                                <option value="">Kategoriyani tanlang</option>
+                                <option value="lavash">Lavash</option>
+                                <option value="burger">Burger</option>
+                                <option value="pizza">Pizza</option>
+                                <option value="hotdog">Hotdog</option>
+                                <option value="sandwich">Sandwich</option>
+                                <option value="chips">Chips</option>
+                                <option value="sous">Sous</option>
+                                <option value="mix">Mix</option>
+                                <option value="cake">Cake</option>
+                                <option value="drinks">Drinks</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                    <button type="button" class="btn btn-success" id="saveProductBtn">
+                        <i class="fas fa-save me-2"></i>Mahsulot qo'shish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Product Modal -->
+    <div class="modal fade" id="adminDetailModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Mahsulot ma'lumotlari</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body text-center">
+            <img id="detailImage" src="" alt="Mahsulot rasmi" class="img-fluid rounded mb-3" style="max-height: 200px;">
+            <h4 id="detailName"></h4>
+            <p class="text-muted">Kategoriya: <span class="badge bg-primary" id="detailCategory"></span></p>
+            <h5 class="text-success">Narxi: <span id="detailPrice"></span> so'm</h5>
+            <p class="text-muted">ID: <span id="detailId" style="font-size: 0.8em;"></span></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="modal fade" id="adminEditModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Mahsulotni tahrirlash</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editProductForm">
+              <input type="hidden" id="editProductId">
+              <div class="mb-3">
+                <label class="form-label">Mahsulot nomi</label>
+                <input type="text" id="editProductName" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Narxi (so'm)</label>
+                <input type="number" id="editProductPrice" class="form-control" min="0" step="0.01" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Rasm URL</label>
+                <input type="url" id="editProductImage" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Kategoriya</label>
+                <select id="editProductCategory" class="form-select" required>
+                  <option value="lavash">Lavash</option>
+                  <option value="burger">Burger</option>
+                  <option value="pizza">Pizza</option>
+                  <option value="hotdog">Hotdog</option>
+                  <option value="sandwich">Sandwich</option>
+                  <option value="chips">Chips</option>
+                  <option value="sous">Sous</option>
+                  <option value="mix">Mix</option>
+                  <option value="cake">Cake</option>
+                  <option value="drinks">Drinks</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+            <button type="button" class="btn btn-success" onclick="saveProductEdit()">Saqlash</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to show admin actions when entering admin panel
+        function showAdminActions() {
+          try {
+            // Show all admin action buttons
+            const adminActions = document.querySelectorAll('.admin-card-actions');
+            adminActions.forEach(action => {
+              action.style.display = 'block';
+            });
+          } catch (error) {
+            console.error('Error showing admin actions:', error);
+          }
+        }
+
+        // Call this function when admin panel loads
+        window.addEventListener('load', function() {
+          showAdminActions();
+          
+          // Add event listener for save product button
+          const saveProductBtn = document.getElementById('saveProductBtn');
+          if (saveProductBtn) {
+            saveProductBtn.addEventListener('click', saveProduct);
+          }
+        });
+
+        // Save product
+        async function saveProduct() {
+            const form = document.getElementById('addProductForm');
+            
+            // Validate form data
+            const name = form.name.value;
+            const price = form.price.value;
+            const image = form.image.value;
+            const category = form.category.value;
+            
+            // Check if all fields are filled
+            if (!name || !price || !image || !category) {
+                showToast('Barcha maydonlarni to\'ldiring!', 'danger');
+                return;
+            }
+            
+            // Check if price is a valid number
+            const priceNum = parseFloat(price);
+            if (isNaN(priceNum) || priceNum <= 0) {
+                showToast('Narx maydoniga to\'g\'ri raqam kiriting!', 'danger');
+                return;
+            }
+            
+            const productData = {
+                name: name,
+                price: priceNum,
+                image: image,
+                category: category
+            };
+            
+            try {
+                const response = await fetch('/admin/products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                });
+                
+                // Response content type ni tekshirish
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.indexOf('application/json') !== -1) {
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        // Close modal
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+                        modal.hide();
+                        
+                        // Reset form
+                        form.reset();
+                        
+                        // Show success message
+                        showToast('Mahsulot muvaffaqiyatli qo\'shildi!', 'success');
+                        
+                        // Redirect to main page after adding product
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 1500);
+                    } else {
+                        showToast('Xatolik yuz berdi: ' + (result.error || 'Unknown error'), 'danger');
+                    }
+                } else {
+                    // Agar JSON bo'lmasa, ehtimol xatolik sahifasi
+                    const errorText = await response.text();
+                    console.error('Server error response:', errorText);
+                    showToast('Server xatosi yuz berdi. Iltimos, qayta urinib ko\'ring.', 'danger');
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                showToast('Tarmoq xatosi yuz berdi: ' + error.message, 'danger');
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            // Remove existing toasts
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+            
+            const toastHtml = `
+                <div class="toast align-items-center text-bg-${type} border-0" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+                    <div class="d-flex">
+                        <div class="toast-body">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', toastHtml);
+            const toastElement = document.body.lastElementChild;
+            const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
+            toast.show();
+            
+            toastElement.addEventListener('hidden.bs.toast', () => {
+                toastElement.remove();
+            });
+        }
+
+        // === ADMIN PRODUCT MANAGEMENT FUNCTIONS ===
+
+        // View product detail
+        async function viewProductDetail(productId) {
+          try {
+            console.log('View product detail called with ID:', productId);
+            
+            // Check if ID is valid
+            if (!productId || productId === ':1' || productId.length < 10) {
+              console.error('Invalid product ID:', productId);
+              alert('Noto\'g\'ri mahsulot identifikatori');
+              return;
+            }
+            
+            const response = await fetch(`/api/products/${productId}`);
+            console.log('View product response status:', response.status);
+            
+            if (response.ok) {
+              const product = await response.json();
+              console.log('View product data:', product);
+              
+              document.getElementById('detailImage').src = product.image;
+              document.getElementById('detailName').textContent = product.name;
+              document.getElementById('detailPrice').textContent = product.price.toLocaleString();
+              document.getElementById('detailCategory').textContent = product.category;
+              document.getElementById('detailId').textContent = product._id;
+              
+              new bootstrap.Modal(document.getElementById('adminDetailModal')).show();
+            } else {
+              const errorText = await response.text();
+              console.error('View product error:', errorText);
+              alert('Mahsulot ma\'lumotlarini yuklashda xatolik: ' + errorText);
+            }
+          } catch (error) {
+            console.error('View product network error:', error);
+            alert('Tarmoq xatosi: ' + error.message);
+          }
+        }
+
+        // Edit product
+        async function editProductCard(productId) {
+          try {
+            console.log('Edit product called with ID:', productId);
+            
+            // Check if ID is valid
+            if (!productId || productId === ':1' || productId.length < 10) {
+              console.error('Invalid product ID:', productId);
+              alert('Noto\'g\'ri mahsulot identifikatori');
+              return;
+            }
+            
+            const response = await fetch(`/api/products/${productId}`);
+            console.log('Edit product response status:', response.status);
+            
+            if (response.ok) {
+              const product = await response.json();
+              console.log('Edit product data:', product);
+              
+              document.getElementById('editProductId').value = product._id;
+              document.getElementById('editProductName').value = product.name;
+              document.getElementById('editProductPrice').value = product.price;
+              document.getElementById('editProductImage').value = product.image;
+              document.getElementById('editProductCategory').value = product.category;
+              
+              new bootstrap.Modal(document.getElementById('adminEditModal')).show();
+            } else {
+              const errorText = await response.text();
+              console.error('Edit product error:', errorText);
+              alert('Mahsulot ma\'lumotlarini yuklashda xatolik: ' + errorText);
+            }
+          } catch (error) {
+            console.error('Edit product network error:', error);
+            alert('Tarmoq xatosi: ' + error.message);
+          }
+        }
+
+        // Add product form submission
+        document.getElementById('saveProductBtn').addEventListener('click', async function() {
+            const form = document.getElementById('addProductForm');
+            
+            // Validate form data
+            const name = form.name.value;
+            const price = form.price.value;
+            const image = form.image.value;
+            const category = form.category.value;
+            
+            // Check if all fields are filled
+            if (!name || !price || !image || !category) {
+                showToast('Barcha maydonlarni to\'ldiring!', 'danger');
+                return;
+            }
+            
+            // Check if price is a valid number
+            const priceNum = parseFloat(price);
+            if (isNaN(priceNum) || priceNum <= 0) {
+                showToast('Narx maydoniga to\'g\'ri raqam kiriting!', 'danger');
+                return;
+            }
+            
+            const productData = {
+                name: name,
+                price: priceNum,
+                image: image,
+                category: category
+            };
+            
+            try {
+                const response = await fetch('/admin/products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                });
+                
+                // Response content type ni tekshirish
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.indexOf('application/json') !== -1) {
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        // Close modal
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+                        modal.hide();
+                        
+                        // Reset form
+                        form.reset();
+                        
+                        // Show success message
+                        showToast('Mahsulot muvaffaqiyatli qo\'shildi!', 'success');
+                        
+                        // Redirect to main page after adding product
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 1500);
+                    } else {
+                        showToast('Xatolik yuz berdi: ' + (result.error || 'Unknown error'), 'danger');
+                    }
+                } else {
+                    // Agar JSON bo'lmasa, ehtimol xatolik sahifasi
+                    const errorText = await response.text();
+                    console.error('Server error response:', errorText);
+                    showToast('Server xatosi yuz berdi. Iltimos, qayta urinib ko\'ring.', 'danger');
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                showToast('Tarmoq xatosi yuz berdi: ' + error.message, 'danger');
+            }
+        });
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            // Remove existing toasts
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+            
+            const toastHtml = `
+                <div class="toast align-items-center text-bg-${type} border-0" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+                    <div class="d-flex">
+                        <div class="toast-body">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', toastHtml);
+            const toastElement = document.body.lastElementChild;
+            const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
+            toast.show();
+            
+            toastElement.addEventListener('hidden.bs.toast', () => {
+                toastElement.remove();
+            });
+        }
+
+        // Save product edit
+        async function saveProductEdit() {
+          const productId = document.getElementById('editProductId').value;
+          const data = {
+            name: document.getElementById('editProductName').value,
+            price: parseFloat(document.getElementById('editProductPrice').value),
+            image: document.getElementById('editProductImage').value,
+            category: document.getElementById('editProductCategory').value
+          };
+          
+          try {
+            console.log('Saving product with ID:', productId, 'Data:', data);
+            
+            // Check if ID is valid
+            if (!productId || productId === ':1' || productId.length < 10) {
+              console.error('Invalid product ID:', productId);
+              alert('Noto\'g\'ri mahsulot identifikatori');
+              return;
+            }
+            
+            const response = await fetch(`/admin/products/${productId}`, {
+              method: 'PUT',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(data)
+            });
+            
+            console.log('Save product response status:', response.status);
+            
+            if (response.ok) {
+              bootstrap.Modal.getInstance(document.getElementById('adminEditModal')).hide();
+              alert('Mahsulot muvaffaqiyatli tahrirlandi!');
+              // Redirect to main page after editing product
+              setTimeout(() => {
+                window.location.href = '/';
+              }, 1500);
+            } else {
+              const errorText = await response.text();
+              console.error('Save product error:', errorText);
+              alert('Xatolik yuz berdi: ' + errorText);
+            }
+          } catch (error) {
+            console.error('Save product network error:', error);
+            alert('Tarmoq xatosi: ' + error.message);
+          }
+        }
+
+        // Delete product
+        async function deleteProductCard(productId) {
+          if (confirm('Bu mahsulotni o\'chirishni xohlaysizmi?')) {
+            try {
+              console.log('Deleting product with ID:', productId);
+              
+              // Check if ID is valid
+              if (!productId || productId === ':1' || productId.length < 10) {
+                console.error('Invalid product ID:', productId);
+                alert('Noto\'g\'ri mahsulot identifikatori');
+                return;
+              }
+              
+              const response = await fetch(`/admin/products/${productId}`, {
+                method: 'DELETE'
+                // Qo'shimcha headerlar kerak bo'lmasa olib tashlandi
+              });
+              
+              console.log('Delete product response status:', response.status);
+              
+              if (response.ok) {
+                // Animate and remove card
+                const card = document.querySelector(`[data-product-id="${productId}"]`);
+                if (card) {
+                  card.style.transition = 'all 0.5s ease';
+                  card.style.transform = 'scale(0)';
+                  card.style.opacity = '0';
+                  
+                  setTimeout(() => {
+                    card.remove();
+                    alert('Mahsulot muvaffaqiyatli o\'chirildi!');
+                    // Redirect to main page after deleting product
+                    window.location.href = '/';
+                  }, 500);
+                }
+              } else {
+                const errorText = await response.text();
+                console.error('Delete product error:', errorText);
+                alert('Xatolik yuz berdi: ' + errorText);
+              }
+            } catch (error) {
+              console.error('Delete product network error:', error);
+              alert('Tarmoq xatosi: ' + error.message);
+            }
+          }
+        }
+
+        // Toggle sidebar function for mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggleButton = document.querySelector('.mobile-toggle');
+            
+            // Only apply on mobile devices
+            if (window.innerWidth < 768) {
+                // If sidebar is open and click is outside sidebar and not on toggle button
+                if (sidebar.classList.contains('show') && 
+                    !sidebar.contains(event.target) && 
+                    event.target !== toggleButton &&
+                    !toggleButton.contains(event.target)) {
+                    sidebar.classList.remove('show');
+                }
+            }
+        });
+        
+        // Add double-click event to logo for admin panel access
+        document.addEventListener('DOMContentLoaded', function() {
+            const adminLogoImage = document.getElementById('adminLogoImage');
+            if (adminLogoImage) {
+                let clickCount = 0;
+                let clickTimer = null;
+                
+                adminLogoImage.addEventListener('click', function() {
+                    clickCount++;
+                    
+                    if (clickCount === 1) {
+                        // Start timer to reset click count
+                        clickTimer = setTimeout(() => {
+                            clickCount = 0;
+                        }, 300); // 300ms timeout for double-click
+                    } else if (clickCount === 2) {
+                        // Double-click detected
+                        clearTimeout(clickTimer);
+                        clickCount = 0;
+                        // Navigate to admin panel login
+                        window.location.href = '/admin-login';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
