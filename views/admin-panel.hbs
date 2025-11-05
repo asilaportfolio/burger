@@ -419,9 +419,9 @@
                         // Show success message
                         showToast('Mahsulot muvaffaqiyatli qo\'shildi!', 'success');
                         
-                        // Redirect to main page after adding product
+                        // Reload page to show new product in admin panel
                         setTimeout(() => {
-                            window.location.href = '/';
+                            location.reload();
                         }, 1500);
                     } else {
                         showToast('Xatolik yuz berdi: ' + (result.error || 'Unknown error'), 'danger');
@@ -669,9 +669,9 @@
             if (response.ok) {
               bootstrap.Modal.getInstance(document.getElementById('adminEditModal')).hide();
               alert('Mahsulot muvaffaqiyatli tahrirlandi!');
-              // Redirect to main page after editing product
+              // Reload page to show updated product in admin panel
               setTimeout(() => {
-                window.location.href = '/';
+                location.reload();
               }, 1500);
             } else {
               const errorText = await response.text();
@@ -715,8 +715,8 @@
                   setTimeout(() => {
                     card.remove();
                     alert('Mahsulot muvaffaqiyatli o\'chirildi!');
-                    // Redirect to main page after deleting product
-                    window.location.href = '/';
+                    // Reload page to show updated product list
+                    location.reload();
                   }, 500);
                 }
               } else {

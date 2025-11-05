@@ -13,15 +13,7 @@ const adminSchema = new mongoose.Schema({
   },
   name: {
     type: String
-  },
-  surname: {
-    type: String
-  },
-  email: {
-    type: String,
-    unique: true,
-    sparse: true  // This will allow null values without violating unique constraint
-  },
+  }, 
   createdAt: {
     type: Date,
     default: Date.now
