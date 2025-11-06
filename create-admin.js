@@ -9,7 +9,6 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Admin ma'lumotlari - BUNI O'ZINGIZNING MA'LUMOTLARINGIZGA O'ZGARTIRING!
 const adminData = {
   login: 'asila',
   password: 'asila123'
@@ -33,7 +32,7 @@ async function createAdmin() {
     console.log('✅ Admin muvaffaqiyatli yaratildi!');
     console.log('Login:', adminData.login);
     console.log('Password:', adminData.password);
-    console.log('\n⚠️  DIQQAT: Parolni xavfsiz joyda saqlang!');
+    console.log('\n DIQQAT: Parolni xavfsiz joyda saqlang!');
     
     process.exit(0);
   } catch (error) {
